@@ -11,19 +11,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-
-        def keystorePropertiesFile = rootProject.file("keystore.properties")
-        def keystoreProperties = new Properties()
-        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        buildTypes.each {
-            it.buildConfigField("String", "TWITTER_CONSUMER_KEY", keystoreProperties.getProperty("TwitterConsumerKeyNormal"))
-            it.buildConfigField("String", "TWITTER_SECRET_KEY", keystoreProperties.getProperty("TwitterConsumerKeySecret"))
         }
     }
 }
