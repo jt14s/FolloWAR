@@ -17,7 +17,7 @@ import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @BindView(R.id.login_button) TwitterLoginButton loginButton;
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Twitter.initialize(this);   //this call must come before setContent
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void failure(TwitterException exception) {
-                Toast.makeText(MainActivity.this, "Failed to connect to Twitter", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Failed to connect to Twitter", Toast.LENGTH_SHORT).show();
             }
         });
     }
