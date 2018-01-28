@@ -1,27 +1,25 @@
 package com.dev.jt14s.followar;
 
-import android.widget.ImageView;
-
 import java.io.Serializable;
 
-public class Card implements Playable, Serializable {
+public class Card implements Serializable {
 
     private int attack;
     private int health;
     private int cost;
-    //private ImageView cardImage;
+    private String cardImageURL;
 
     public int getAttack() {
         return attack;
     }
 
-    int getHealth() {
-        return health;
-    }
+    int getHealth() { return health; }
 
     public int getCost() {
         return cost;
     }
+
+    public String getCardImageURL() { return cardImageURL; }
 
     public void setAttack(int attack) {
         this.attack = attack;
@@ -35,8 +33,7 @@ public class Card implements Playable, Serializable {
         this.cost = cost;
     }
 
-    @Override
-    public void attack(Card opponent) {
-        opponent.setHealth(opponent.getHealth() - this.attack);
-    }
+    public void setCardImageURL(String cardImageURL) { this.cardImageURL = cardImageURL; }
+
+    public void attack(Card opponent) { opponent.setHealth(opponent.getHealth() - this.attack); }
 }

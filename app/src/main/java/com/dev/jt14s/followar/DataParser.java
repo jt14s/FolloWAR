@@ -42,10 +42,6 @@ public class DataParser {
 
     private Card getFollower(JSONObject jFollower) {
         Card followerCard = new Card();
-        String cardImage = "";
-        String cardHealth = "";
-        String cardDamage = "";
-        String cardCost = "";
 
         try {
             if (!jFollower.isNull("created_at")) {
@@ -56,7 +52,8 @@ public class DataParser {
                 followerCard.setCost(Integer.parseInt(jFollower.getString("followers_count")));
             if (!jFollower.isNull("statuses_count"))
                 followerCard.setAttack(Integer.parseInt(jFollower.getString("statuses_count")) % 10);
-
+            if (!jFollower.isNull("profile_image_url"))
+                followerCard.setCardImageURL(jFollower.getString("profile_image_url"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

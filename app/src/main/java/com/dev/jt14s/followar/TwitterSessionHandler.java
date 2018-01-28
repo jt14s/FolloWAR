@@ -1,7 +1,6 @@
 package com.dev.jt14s.followar;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -32,7 +31,6 @@ public class TwitterSessionHandler {
         TwitterAuthToken authToken = session.getAuthToken();
         MyTwitterApiClient apiClient = new MyTwitterApiClient(session);
         UserService userService = apiClient.getUserServices();
-
         generateUserFollowersCall(session, userService);
     }
 
@@ -51,7 +49,7 @@ public class TwitterSessionHandler {
 
             @Override
             public void failure(TwitterException exception) {
-                //TODO::do something with error message
+
             }
         });
     }
