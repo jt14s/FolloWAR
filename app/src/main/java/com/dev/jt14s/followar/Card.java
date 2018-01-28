@@ -2,16 +2,14 @@ package com.dev.jt14s.followar;
 
 import android.widget.ImageView;
 
-public class Card implements Playable {
+import java.io.Serializable;
+
+public class Card implements Playable, Serializable {
 
     private int attack;
     private int health;
+    private int cost;
     //private ImageView cardImage;
-
-    public Card(int attack, int health) {
-        this.attack = attack;
-        this.health = health;
-    }
 
     public int getAttack() {
         return attack;
@@ -21,12 +19,20 @@ public class Card implements Playable {
         return health;
     }
 
+    public int getCost() {
+        return cost;
+    }
+
     public void setAttack(int attack) {
         this.attack = attack;
     }
 
     void setHealth(int health) {
         this.health = health;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     @Override
