@@ -1,34 +1,38 @@
 package com.dev.jt14s.followar;
 
+import android.content.Context;
+import android.view.View;
+import android.widget.FrameLayout;
+
 /**
  * Created by Jorge on 1/28/2018.
  */
 
 public abstract class CardArea {
 
-    private Card[] cards;
+    private CardData[] cardData;
     private int cardCount;
 
     public CardArea(int size) {
-        cards = new Card[size];
+        cardData = new CardData[size];
         cardCount = 0;
         initArray();
     }
 
     private void initArray() {
-        for (int i = 0; i < cards.length; ++i)
-            cards[i] = null;
+        for (int i = 0; i < cardData.length; ++i)
+            cardData[i] = null;
     }
 
     public boolean canHoldCard(int maxCount) {
         return cardCount <= maxCount;
     }
 
-    public void addCard(Card card, int maxCount) {
+    public void addCard(CardData cardData, int maxCount) {
         if (canHoldCard(maxCount)) {
             for (int i = 0; i < maxCount; ++i) {
-                if (cards[i] == null) {
-                    cards[i] = card;
+                if (this.cardData[i] == null) {
+                    this.cardData[i] = cardData;
                     ++cardCount;
                 }
             }
@@ -36,7 +40,7 @@ public abstract class CardArea {
     }
 
     public void removeCard(int cardPosition) {
-        cards[cardPosition] = null;
+        cardData[cardPosition] = null;
         --cardCount;
     }
 }

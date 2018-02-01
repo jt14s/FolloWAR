@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class TwitterResponseManager extends AsyncTask<Object, String, String> {
 
-    private List<Card> cards;
+    private List<CardData> cardData;
     private Context context;
 
     public TwitterResponseManager(Context context) {
@@ -25,7 +24,7 @@ public class TwitterResponseManager extends AsyncTask<Object, String, String> {
     @Override
     protected String doInBackground(Object... objects) {
         DataParser parser = new DataParser();
-        cards = parser.parse(String.valueOf(objects[0]));
+        cardData = parser.parse(String.valueOf(objects[0]));
         return null;
     }
 
@@ -34,7 +33,7 @@ public class TwitterResponseManager extends AsyncTask<Object, String, String> {
         super.onPostExecute(s);
         Intent intent = new Intent(context, BoardActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("follower_cards", (Serializable) cards);
+        bundle.putSerializable("follower_cards", (Serializable) cardData);
         intent.putExtra("bundle", bundle);
         context.startActivity(intent);
     }

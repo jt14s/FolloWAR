@@ -1,39 +1,55 @@
 package com.dev.jt14s.followar;
 
-import java.io.Serializable;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class Card implements Serializable {
+import com.squareup.picasso.Picasso;
 
-    private int attack;
-    private int health;
-    private int cost;
-    private String cardImageURL;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    public int getAttack() {
-        return attack;
+/**
+ * Created by Jorge on 1/31/2018.
+ */
+
+public class Card extends View {
+
+    public Card(Context context) {
+        super(context);
+        init(null);
     }
 
-    int getHealth() { return health; }
-
-    public int getCost() {
-        return cost;
+    public Card(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init(attrs);
     }
 
-    public String getCardImageURL() { return cardImageURL; }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
+    public Card(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(attrs);
     }
 
-    void setHealth(int health) {
-        this.health = health;
+    public Card(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init(attrs);
     }
 
-    public void setCost(int cost) {
-        this.cost = cost;
+    private void init(AttributeSet attributeSet) {
+
     }
 
-    public void setCardImageURL(String cardImageURL) { this.cardImageURL = cardImageURL; }
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
-    public void attack(Card opponent) { opponent.setHealth(opponent.getHealth() - this.attack); }
+    }
+
+
 }
