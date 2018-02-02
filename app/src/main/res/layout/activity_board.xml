@@ -3,66 +3,417 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".BoardActivity">
+
+    <!--|| Deck UI Elements ||-->
 
     <ImageButton
         android:id="@+id/playerDeck"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/imageView6"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView6" />
+
+    <ImageButton
+        android:id="@+id/opponentDeck"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:rotation="180"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/imageView2"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="92dp"
+        android:layout_height="19dp"
+        app:srcCompat="@android:drawable/bottom_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="92dp"
+        android:layout_height="19dp"
+        app:srcCompat="@android:drawable/bottom_bar"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <!--// Deck UI Elements //-->
+
+    <!--|| Portrait UI Elements ||-->
+
+    <ImageView
+        android:id="@+id/opponentPortrait"
+        android:layout_width="72dp"
+        android:layout_height="71dp"
+        app:srcCompat="@android:drawable/alert_light_frame"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="3dp" />
+
+    <ImageView
+        android:id="@+id/playerPortrait"
+        android:layout_width="72dp"
+        android:layout_height="71dp"
+        app:srcCompat="@android:drawable/alert_light_frame"
+        android:layout_marginLeft="3dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="3dp" />
+
+    <TextView
+        android:id="@+id/opponentHPText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:background="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:text="opponentHP"
+        android:background="#ffffff"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/opponentPortrait"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp" />
+
+    <TextView
+        android:id="@+id/playerHPText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="playerHP"
+        android:background="#ffffff"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerPortrait"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="8dp" />
+
+    <!--// Portrait UI Elements //-->
+
+    <!--|| Player Hand UI Elements ||-->
+
 
     <com.dev.jt14s.followar.Card
-        android:id="@+id/handCard1"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/playerHand1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/playerDeck"
-        android:layout_marginEnd="30dp"
-        tools:layout_editor_absoluteX="429dp" />
+        android:layout_marginBottom="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/imageView6"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
 
     <com.dev.jt14s.followar.Card
-        android:id="@+id/handCard2"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/playerHand2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/handCard1"
-        tools:layout_editor_absoluteX="345dp" />
+        android:layout_marginBottom="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/playerHand1"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
 
     <com.dev.jt14s.followar.Card
-        android:id="@+id/handCard3"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/playerHand3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/handCard2"
-        tools:layout_editor_absoluteX="259dp" />
+        android:layout_marginBottom="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/playerHand2"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
 
     <com.dev.jt14s.followar.Card
-        android:id="@+id/handCard4"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/playerHand4"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/handCard3"
-        tools:layout_editor_absoluteX="171dp" />
+        android:layout_marginBottom="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/playerHand3"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
 
     <com.dev.jt14s.followar.Card
-        android:id="@+id/handCard5"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="10dp"
+        android:id="@+id/playerHand5"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/handCard4"
-        tools:layout_editor_absoluteX="82dp" />
+        android:layout_marginBottom="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/playerHand4"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
+
+    <!--// Player Hand UI Elements //-->
+
+    <!--|| Opponent Hand UI ||-->
+
+    <com.dev.jt14s.followar.Card
+        android:id="@+id/opponentHand1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
+        app:layout_constraintRight_toLeftOf="@+id/imageView2"
+        android:layout_marginRight="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="1dp"
+        android:rotation="180"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
+
+    <com.dev.jt14s.followar.Card
+        android:id="@+id/imageButton2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/opponentHand1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:rotation="180"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
+
+    <com.dev.jt14s.followar.Card
+        android:id="@+id/opponentHand3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:srcCompat="@drawable/ic_launcher_background"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/imageButton2"
+        android:layout_marginRight="8dp"
+        android:rotation="180"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
+
+    <com.dev.jt14s.followar.Card
+        android:id="@+id/opponentHand4"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background"
+        app:layout_constraintRight_toLeftOf="@+id/opponentHand3"
+        android:layout_marginRight="8dp"
+        android:rotation="180"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
+
+    <com.dev.jt14s.followar.Card
+        android:id="@+id/opponentHand5"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintRight_toLeftOf="@+id/opponentHand4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:rotation="180"
+        android:layout_marginEnd="8dp"
+        android:visibility="invisible"/>
+
+    <!--// Opponent Hand UI //-->
+
+    <!--|| Active Card Area ||-->
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/playerActiveCardArea"
+        android:layout_width="431dp"
+        android:layout_height="77dp"
+        android:layout_marginRight="8dp"
+        android:background="#002222"
+        android:orientation="horizontal"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerDeck"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <!--|| Active Card Section ||-->
+
+        <com.dev.jt14s.followar.Card
+            android:id="@+id/playerActiveCard1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintLeft_toRightOf="@+id/playerActiveCard2"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:visibility="invisible"
+            android:layout_marginStart="8dp" />
+
+        <com.dev.jt14s.followar.Card
+            android:id="@+id/playerActiveCard3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintRight_toLeftOf="@+id/playerActiveCard2"
+            android:layout_marginRight="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:visibility="invisible"
+            android:layout_marginEnd="8dp" />
+
+        <com.dev.jt14s.followar.Card
+            android:id="@+id/playerActiveCard2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.555"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:visibility="invisible"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <!--// Active Card Section //-->
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/opponentActiveArea"
+        android:layout_width="431dp"
+        android:layout_height="77dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#002222"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opponentDeck"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+        <com.dev.jt14s.followar.Card
+            android:id="@+id/opponentActiveCard1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:visibility="visible"
+            android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.555"
+            app:layout_constraintLeft_toRightOf="@+id/opponentActiveCard2"
+            android:layout_marginLeft="8dp" />
+
+        <com.dev.jt14s.followar.Card
+            android:id="@+id/opponentActiveCard2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.555"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:visibility="visible"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <com.dev.jt14s.followar.Card
+            android:id="@+id/opponentActiveCard3"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintRight_toLeftOf="@+id/opponentActiveCard2"
+            android:layout_marginRight="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:srcCompat="@drawable/ic_launcher_background"
+            android:visibility="visible"
+            android:layout_marginEnd="8dp" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <!--// Active Card Area //-->
+
+    <!--|| Game Buttons ||-->
+
+    <Button
+        android:id="@+id/endTurnButton"
+        android:layout_width="88dp"
+        android:layout_height="58dp"
+        android:text="End Turn"
+        android:layout_marginRight="7dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/opponentHPText"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerHPText"
+        app:layout_constraintVertical_bias="0.489"
+        android:layout_marginEnd="7dp" />
+
+    <Button
+        android:id="@+id/quitAppButton"
+        android:layout_width="88dp"
+        android:layout_height="58dp"
+        android:text="Quit"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/opponentHPText"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/playerHPText"
+        android:layout_marginStart="8dp" />
+
+    <!--// Game Buttons //-->
 
 </android.support.constraint.ConstraintLayout>
