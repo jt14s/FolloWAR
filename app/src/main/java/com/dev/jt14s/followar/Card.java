@@ -1,10 +1,10 @@
 package com.dev.jt14s.followar;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,11 +54,11 @@ public class Card extends FrameLayout {
 
     public void setCost(int cost) { this.cost.setText(String.valueOf(cost)); }
 
-    public void setPicture(String imageURL) { Picasso.with(getContext()).load(imageURL).into(image); }
-
     public int getAttack() { return Integer.parseInt(attack.getText().toString()); }
 
     public int getHealth() { return Integer.parseInt(health.getText().toString()); }
+
+    public int getCost() { return Integer.parseInt(cost.getText().toString()); }
 
     public void setImageURL(String url) { imageURL = url; }
 
@@ -70,6 +70,20 @@ public class Card extends FrameLayout {
         setAttack(data.getAttack());
         setCost(data.getCost());
         setHealth(data.getHealth());
+        setImageURL(data.getCardImageURL());
         Picasso.with(getContext()).load(data.getCardImageURL()).into(image);
     }
+
+    public void copyCardData(Card oldCard) {
+        this.attack.setText(String.valueOf(oldCard.getAttack()));
+        this.cost.setText(String.valueOf(oldCard.getCost()));
+        this.health.setText(String.valueOf(oldCard.getHealth()));
+        this.imageURL = oldCard.getImageURL();
+        Picasso.with(getContext()).load(oldCard.getImageURL()).into(image);
+    }
+
+    public void setOnClickListener(CompoundButton.OnClickListener listener) {
+        image.setOnClickListener(listener);
+    }
+
 }

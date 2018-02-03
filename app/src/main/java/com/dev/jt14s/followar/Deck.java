@@ -20,11 +20,13 @@ public class Deck {
     }
 
     public boolean canDraw() {
-        return (topOfDeck - 1) >= 0;
+        return topOfDeck - 1 >= -1; //check to -1 due to n through 0 being valid topOfDeck
     }
 
     public CardData drawCard() {
-        return canDraw() ? cards.get(topOfDeck--) : null;
+        CardData cardData = cards.get(topOfDeck);
+        topOfDeck--;
+        return cardData;
     }
 
     private void shuffleDeck() {

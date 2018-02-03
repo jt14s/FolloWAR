@@ -1,66 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="5dp">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/cardImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
     <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start">
 
         <ImageView
-            android:id="@+id/cardImage"
+            android:id="@+id/costFrame"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/blueb" />
+
+        <TextView
+            android:id="@+id/costPoints"
+            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_background"/>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start">
-
-            <TextView
-                android:id="@+id/attackPoints"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:textSize="30dp" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end">
-
-            <TextView
-                android:id="@+id/healthPoints"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:textSize="30dp" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|start">
-
-            <TextView
-                android:id="@+id/costPoints"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:textSize="30dp" />
-
-        </FrameLayout>
+            android:text="5"
+            android:textSize="20dp"
+            android:textColor="@color/tw__light_gray" />
 
     </FrameLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start">
+
+        <ImageView
+            android:id="@+id/attackFrame"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/yellowb" />
+
+        <TextView
+            android:id="@+id/attackPoints"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="20dp"
+            android:textColor="#fff" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
+
+        <ImageView
+            android:id="@+id/healthFrame"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/redb" />
+
+        <TextView
+            android:id="@+id/healthPoints"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="20dp"
+            android:textColor="#fff" />
+
+    </FrameLayout>
+
+</FrameLayout>
+
+</merge>

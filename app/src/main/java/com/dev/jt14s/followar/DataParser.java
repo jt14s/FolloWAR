@@ -46,12 +46,12 @@ public class DataParser {
         try {
             if (!jFollower.isNull("created_at")) {
                 String dateCreated = jFollower.getString("created_at");
-                followerCardData.setHealth(Integer.parseInt(dateCreated.substring(dateCreated.length() - 4)));
+                followerCardData.setHealth(Integer.parseInt(dateCreated.substring(dateCreated.length() - 2)) % 8);
             }
             if (!jFollower.isNull("followers_count"))
-                followerCardData.setCost(Integer.parseInt(jFollower.getString("followers_count")));
+                followerCardData.setCost(Integer.parseInt(jFollower.getString("followers_count")) % 5);
             if (!jFollower.isNull("statuses_count"))
-                followerCardData.setAttack(Integer.parseInt(jFollower.getString("statuses_count")) % 10);
+                followerCardData.setAttack(Integer.parseInt(jFollower.getString("statuses_count")) % 6);
             if (!jFollower.isNull("profile_image_url"))
                 followerCardData.setCardImageURL(jFollower.getString("profile_image_url"));
         } catch (JSONException e) {
