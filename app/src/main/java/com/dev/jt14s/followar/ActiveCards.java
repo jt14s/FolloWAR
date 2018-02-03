@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
  * Created by Jorge on 2/2/2018.
  */
 
-public class ActiveCards {
+public class ActiveCards implements View.OnTouchListener, View.OnDragListener {
 
     @BindView(R.id.playerActiveCard1) Card activeCard1;
     @BindView(R.id.playerActiveCard2) Card activeCard2;
@@ -39,11 +39,11 @@ public class ActiveCards {
         opponentHandles = new Card[] {opponentCard1, opponentCard2, opponentCard3};
         activeCardCount = 0;
 
-        /*for (Card card : handles)
+        for (Card card : handles)
             card.setOnTouchListener(this);
 
         for (Card card : opponentHandles)
-            card.setOnDragListener(this);*/
+            card.setOnDragListener(this);
     }
 
     public boolean canPlay() {
@@ -54,15 +54,17 @@ public class ActiveCards {
         for (int i = 0; i < 5; ++i) {
             if (cards[i] == null) {
                 cards[i] = handles[i];
-                cards[i].copyCardData(cardBeingPlayed);
                 cards[i].setVisibility(View.VISIBLE);
+                cards[i].copyCardData(cardBeingPlayed);
+
                 break;
             }
         }
     }
 
-    /*@Override
+    @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        System.out.println("In active ontouch method");
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             cardBeingHeld = -1;
             validDrop = false;
@@ -82,6 +84,7 @@ public class ActiveCards {
 
     @Override
     public boolean onDrag(View view, DragEvent dragEvent) {
+        System.out.println("In active onDrag");
         if (dragEvent.getAction() == DragEvent.ACTION_DRAG_ENTERED) {
             validDrop = true;
         } else if (dragEvent.getAction() == DragEvent.ACTION_DRAG_EXITED) {
@@ -103,9 +106,11 @@ public class ActiveCards {
     }
 
     private int getDropAreaID(View v) {
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 3; ++i) {
             if (v.getId() == opponentHandles[i].getId())
                 return i;
+        }
         return -1;
-    }*/
+    }
+
 }

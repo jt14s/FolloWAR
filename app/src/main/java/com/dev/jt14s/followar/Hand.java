@@ -60,6 +60,7 @@ public class Hand implements View.OnTouchListener, View.OnDragListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+        System.out.println("In hands ontouch method");
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             cardBeingHeld = -1;
             validDrop = false;
