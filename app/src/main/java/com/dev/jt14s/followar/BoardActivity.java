@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,9 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
     @BindView(R.id.playerActiveCard2) Card activeCard2;
     @BindView(R.id.playerActiveCard3) Card activeCard3;
 
+    @BindView(R.id.playerPortrait) ImageView playerPortrait;
+    @BindView(R.id.playerHPText) TextView playerHP;
+
     @BindView(R.id.opponentActiveCard1) Card opponentCard1;
     @BindView(R.id.opponentActiveCard2) Card opponentCard2;
     @BindView(R.id.opponentActiveCard3) Card opponentCard3;
@@ -45,9 +52,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
     private int cardBeingHeld;
     private boolean validDrop;
-    Card tempImage;
 
-    private enum CARD_TYPE {HAND, ACTIVE};
+    private enum CARD_TYPE {HAND, ACTIVE}
     private CARD_TYPE heldCardType;
 
     @Override
@@ -58,7 +64,7 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
 
         activeCards = new ActiveCards(this);
         deck = new Deck(receiveCards());
-        hand = new Hand(this, activeCards);
+        hand = new Hand(this);
 
         playerHandHandles = new Card[] {handCard1, handCard2, handCard3, handCard4, handCard5};
         playerActiveHandles = new Card[] {activeCard1, activeCard2, activeCard3};
@@ -71,6 +77,8 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         for (Card card : opponentActiveHandles)
             card.setOnDragListener(this);
         findViewById(R.id.playerActiveCardArea).setOnDragListener(this);
+
+        playerHP.setText(String.valueOf(20));
     }
     
     private ArrayList<CardData> receiveCards() {
@@ -101,25 +109,26 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
             validDrop = false;
 
             boolean found = false;
-            for (int i = 0; i < 5; ++i) {
-                if (view.getId() == playerHandHandles[i].getId()) {
+            for (int i = 0; i < 3; ++i) {
+                if (view.getId() == playerActiveHandles[i].getId()) {
                     cardBeingHeld = i;
-                    heldCardType = CARD_TYPE.HAND;
+                    heldCardType = CARD_TYPE.ACTIVE;
                     found = true;
+                    break;
                 }
             }
 
             if (!found) {
-                for (int i = 0; i < 3; ++i) {
-                    if (view.getId() == opponentActiveHandles[i].getId()) {
+                for (int i = 0; i < 5; ++i) {
+                    if (view.getId() == playerHandHandles[i].getId()) {
                         cardBeingHeld = i;
-                        heldCardType = CARD_TYPE.ACTIVE;
+                        heldCardType = CARD_TYPE.HAND;
+                        break;
                     }
                 }
             }
 
             view.setVisibility(View.INVISIBLE);
-            tempImage = (Card) view;
             View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(view);
             view.startDrag(null, dragShadowBuilder, view,0);
             return true;
@@ -134,67 +143,39 @@ public class BoardActivity extends AppCompatActivity implements View.OnTouchList
         } else if (dragEvent.getAction() == DragEvent.ACTION_DRAG_EXITED) {
             validDrop = false;
         } else if (dragEvent.getAction() == DragEvent.ACTION_DROP) {
-            int vID = checkValidDrop(view);
-            System.out.println("HERE");
-            if (!validDrop) {
-                tempImage.setVisibility(View.VISIBLE);
-                return false;
-            }
-            switch (vID) {
-                case R.id.playerActiveCardArea:
-                    if (activeCards.canPlay() && heldCardType == CARD_TYPE.HAND) {
-                        //TODO::Place card
-                        activeCards.addCard(hand.playCard(cardBeingHeld));
-                    } else {
-                        Toast.makeText(this, "Can't place more cards on board", Toast.LENGTH_SHORT).show();
-                        tempImage.setVisibility(View.VISIBLE);
+            if (view.getId() == R.id.playerActiveCardArea && heldCardType == CARD_TYPE.HAND) {
+                if (activeCards.canPlay())
+                    activeCards.addCard(hand.playCard(cardBeingHeld));
+                else
+                    Toast.makeText(this, "Active zone is full", Toast.LENGTH_SHORT).show();
+            } else if (heldCardType == CARD_TYPE.ACTIVE) {
+                int cardToAttack = -1;
+                for (int i = 0; i < 3; ++i) {
+                    if (view.getId() == opponentActiveHandles[i].getId()) {
+                        cardToAttack = i;
+                        break;
                     }
-                    break;
-                case R.id.opponentPortrait:
-                    if (heldCardType == CARD_TYPE.ACTIVE) {
-                        //TODO: Hurt opponent player
-                    }
-                    else {
-                        Toast.makeText(this, "Only active cards can do that", Toast.LENGTH_SHORT).show();
-                        tempImage.setVisibility(View.VISIBLE);
-                    }
-                    break;
-                case R.id.opponentActiveCard1:
-                case R.id.opponentActiveCard2:
-                case R.id.opponentActiveCard3:
-                    if (heldCardType == CARD_TYPE.ACTIVE) {
-                        //TODO::Hurt opponent card
-                        //also check to see if we can destroy any cards
-                    } else {
-                        Toast.makeText(this, "Only active cards can do that", Toast.LENGTH_SHORT).show();
-                        tempImage.setVisibility(View.VISIBLE);
-                    }
-                    break;
-                default:
-                    tempImage.setVisibility(View.VISIBLE);
-            }
+                }
+                System.out.println("Attacking card " + (cardToAttack + 1));
+                resetCardPosition(dragEvent);
+            } else
+                resetCardPosition(dragEvent);
         } else if (dragEvent.getAction() == DragEvent.ACTION_DRAG_ENDED) {
             if (!validDrop)
-                tempImage.setVisibility(View.VISIBLE);
+                resetCardPosition(dragEvent);
         }
 
         return true;
     }
 
-    private int checkValidDrop(View v) {
-        if (v.getId() == R.id.playerActiveCardArea)
-            return v.getId();
-        else if (v.getId() == R.id.opponentPortrait)
-            return v.getId();
-        else if (v.getId() == opponentCard1.getId())
-            return v.getId();
-        else if (v.getId() == opponentCard2.getId())
-            return v.getId();
-        else if (v.getId() == opponentCard3.getId())
-            return v.getId();
-
-        else
-            return -1;
+    private void resetCardPosition(DragEvent dragEvent) {
+        final View droppedView = (View) dragEvent.getLocalState();
+        droppedView.post(new Runnable(){
+            @Override
+            public void run() {
+                droppedView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
 }

@@ -14,25 +14,26 @@ import butterknife.ButterKnife;
 
 public class Hand {
 
-    @BindView(R.id.playerHand1) Card handCard1;
-    @BindView(R.id.playerHand2) Card handCard2;
-    @BindView(R.id.playerHand3) Card handCard3;
-    @BindView(R.id.playerHand4) Card handCard4;
-    @BindView(R.id.playerHand5) Card handCard5;
+    @BindView(R.id.playerHand1)
+    Card handCard1;
+    @BindView(R.id.playerHand2)
+    Card handCard2;
+    @BindView(R.id.playerHand3)
+    Card handCard3;
+    @BindView(R.id.playerHand4)
+    Card handCard4;
+    @BindView(R.id.playerHand5)
+    Card handCard5;
 
     private Card[] hand;
     private Card[] handles;
     private int handSize;
-    private Activity context;
-    private ActiveCards activeCards;
 
-    public Hand(Activity context, ActiveCards activeCards) {
-        this.context = context;;
+    public Hand(Activity context) {
         ButterKnife.bind(this, context);
-        hand = new Card[] {null, null, null, null, null};
-        handles = new Card[] {handCard1, handCard2, handCard3, handCard4, handCard5};
+        hand = new Card[]{null, null, null, null, null};
+        handles = new Card[]{handCard1, handCard2, handCard3, handCard4, handCard5};
         handSize = 0;
-        this.activeCards = activeCards;
     }
 
     public boolean canHold() {
@@ -52,10 +53,10 @@ public class Hand {
     }
 
     public Card playCard(int index) {
-        handSize--;
-        Card returnCard = hand[index];
+        Card cardBeingPlayed = handles[index];
         hand[index] = null;
-        return returnCard;
+        handSize--;
+        return cardBeingPlayed;
     }
 
 }
